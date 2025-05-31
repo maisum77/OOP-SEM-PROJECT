@@ -5,18 +5,52 @@ class Room //room class is done
 {
     protected:
     int roomID;
+    bool isExit;
+    bool occupy;
     public:
     Room() // set room id when object is created
     {
         roomID = 1;
+        isExit=false;
+        occupy=false;
     }
     void setRoomID(int id) // setter
     {
         roomID = id;
     }
+    int showRoomId()
+    {
+        return roomID;
+    }
     void showRoom() //getter
     {
-        cout << "Room ID: " << roomID << endl;
+        if (isExit)
+        {
+            cout << "Exit (Room ID: " << roomID << ")";
+        }
+        else
+        {
+            cout << "Room ID: " << roomID;
+        }
+
+        // Display occupation status.
+        if (occupy)
+        {
+            cout << " - Occupied";
+        }
+        else
+        {
+            cout << " - Empty";
+        }
+        cout << endl; 
+    }
+    void setIsExit(bool exitStatus)
+    {
+        isExit = exitStatus;
+    }
+    void SetIsOccupy(bool status)
+    {
+        occupy=status;
     }
     
 
@@ -35,12 +69,22 @@ class Floor
         for(int i=0;i<=room_num;i++)
         {
             r[i].setRoomID(floor_num * 100 + i + 1);// give id to all the rooms with formula
+
+             if (i == 0 || i == room_num - 1 || (i + 1) % 10 == 0)
+            {
+                r[i].setIsExit(true); // Mark as an exit.
+            }
+            else
+            {
+                r[i].setIsExit(false); // Otherwise, it's a regular room.
+            }
         }
     }
     void showFloor() {
         cout << "Floor " << floor_num << " has " << room_num << " rooms:\n";
         for (int i = 0; i < room_num; i++) {
             r[i].showRoom();
+            
         }
     }
     //how many room --done
@@ -61,6 +105,11 @@ class building
             f[i] = new Floor(i + 1, no_of_room[i]);
         }
         
+    }
+    void occupy_room(int a )
+    {
+        
+     
     }
     //how many floor
     //
